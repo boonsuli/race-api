@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  mariadb-data:
+  app-java:
+
+networks:
+  mariadb-network:
+    driver: bridge
+
+services:
+  app_java:
+    restart:  always
+    image: ${APP_PROJECT}/${APP_SUB_PROJECT}:${APP_VERSION}
+    hostname: ${APP_HOSTNAME}
+    container_name: ${APP_CONTAINER_NAME}
+    environment:
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    build:
+      context: .
+      dockerfile: ./docker/app_java/Dockerfile
+    env_file:
+      - ./docker/config/env.dev
+    volumes:
+      - ./app_java/:/app/
+    ports:
+      - "${APP_RUNNING_SERVER_PORT}:${APP_RUNNING_SERVER_PORT}"
+    command: /usr/local/openjdk-11/bin/java -Dspring.profiles.active=dev-local-bd-container-mariadb -jar /app/api/trailerplan-race-api.jar
+    depends_on:
+      - mariadb
+    networks:
+      - mariadb-network
+
+  mariadb:
+      restart:  always
+      image:  mariadb:10.5.9
+      hostname: ${MARIADB_HOST_NAME}
+      container_name: ${MARIADB_CONTAINER_NAME}
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MARIADB_USER: ${MARIADB_USER}
+        MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+        MARIADB_DATABASE: ${MARIADB_DATABASE}
+      env_file:
+        - ./docker/config/env.dev
+      volumes:
+        - ./docker/mariadb/initdb.d:/docker-entrypoint-initdb.d
+      ports:
+        - "3306:3306"
+      networks:
+        - mariadb-network
