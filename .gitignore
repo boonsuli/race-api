@@ -1,7 +1,6 @@
 HELP.md
-notCommit.txt
-target/
 notCommit/
+target/
 docker/app
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
