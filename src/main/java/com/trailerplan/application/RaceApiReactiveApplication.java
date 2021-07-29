@@ -13,7 +13,7 @@ import com.trailerplan.config.*;
 
 @Configuration
 @ComponentScan(basePackages = {"com.trailerplan.repository", "com.trailerplan.service", "com.trailerplan.controller"})
-@ContextConfiguration(classes = {AppDataConfig.class, SwaggerConfig.class})
+@ContextConfiguration(classes = {AppConfig.class, R2dbcConfig.class, SwaggerConfig.class})
 @SpringBootApplication(scanBasePackages = {"com.trailerplan.service", "com.trailerplan.repository", "com.trailerplan.controller"})
 @EnableR2dbcRepositories(basePackages = {"com.trailerplan.repository"})
 @Slf4j

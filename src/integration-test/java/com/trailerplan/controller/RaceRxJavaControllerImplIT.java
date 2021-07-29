@@ -25,13 +25,15 @@ import com.trailerplan.service.RaceRxJavaServiceImpl;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-public class RaceRxJavaControllerImplTest {
+public class RaceRxJavaControllerImplIT {
 
     @InjectMocks
     private RaceRxJavaControllerImpl controller;
 
     @Autowired
     private RaceRxJavaServiceImpl service;
+
+    private String URI_DOMAIN = "/api/race-rxjava";
 
     @BeforeAll
     public void initAll() {
@@ -63,7 +65,7 @@ public class RaceRxJavaControllerImplTest {
                 .bindToController(controller)
                 .build()
                 .get()
-                .uri("/api/race-rxjava")
+                .uri(URI_DOMAIN)
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .expectStatus().is2xxSuccessful()
@@ -79,7 +81,7 @@ public class RaceRxJavaControllerImplTest {
                 .bindToController(controller)
                 .build()
                 .get()
-                .uri("/api/race-rxjava/"+expectedId)
+                .uri(URI_DOMAIN + "/" + expectedId)
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .expectStatus().is2xxSuccessful()
@@ -95,7 +97,7 @@ public class RaceRxJavaControllerImplTest {
                 .bindToController(controller)
                 .build()
                 .post()
-                .uri("/api/race-rxjava")
+                .uri(URI_DOMAIN)
                 .bodyValue(buildRaceDTO())
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -123,7 +125,7 @@ public class RaceRxJavaControllerImplTest {
                     .bindToController(controller)
                     .build()
                     .put()
-                    .uri("/api/race-rxjava")
+                    .uri(URI_DOMAIN)
                     .bodyValue(r)
                     .exchange()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -149,7 +151,7 @@ public class RaceRxJavaControllerImplTest {
                     .bindToController(controller)
                     .build()
                     .delete()
-                    .uri("/api/race-rxjava/"+expectedId)
+                    .uri(URI_DOMAIN + "/" + expectedId)
                     .exchange()
                     .expectStatus().isNoContent()
            ;

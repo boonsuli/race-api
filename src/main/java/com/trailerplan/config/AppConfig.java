@@ -24,7 +24,7 @@ import com.trailerplan.model.converters.LocalDateToDateConverter;
 @EnableR2dbcRepositories(basePackages = {"com.trailerplan.repository"})
 @EnableTransactionManagement
 @Slf4j
-public class AppDataConfig  {
+public class AppConfig {
 
     @Bean(name = "org.dozer.Mapper")
     public DozerBeanMapperFactoryBean dozerBean() throws IOException {

@@ -21,12 +21,12 @@ services:
       context: .
       dockerfile: ./docker/app_java/Dockerfile
     env_file:
-      - ./docker/config/env.dev
+      - docker/config/env.dev
     volumes:
-      - ./app_java/:/app/
+      - ./docker/app/:/app/
     ports:
-      - "${APP_RUNNING_SERVER_PORT}:${APP_RUNNING_SERVER_PORT}"
-    command: /usr/local/openjdk-11/bin/java -Dspring.profiles.active=dev-local-bd-container-mariadb -jar /app/api/trailerplan-race-api.jar
+      - "8080:8080"
+    command: /usr/local/openjdk-11/bin/java -Dspring.profiles.active=dev-app-container -jar /app/trailerplan-race-api.jar com.trailerplan.application.RaceApiReactiveApplication
     depends_on:
       - mariadb
     networks:
@@ -46,7 +46,7 @@ services:
         MARIADB_PASSWORD: ${MARIADB_PASSWORD}
         MARIADB_DATABASE: ${MARIADB_DATABASE}
       env_file:
-        - ./docker/config/env.dev
+        - docker/config/env.dev
       volumes:
         - ./docker/mariadb/initdb.d:/docker-entrypoint-initdb.d
       ports:

@@ -25,7 +25,7 @@ import com.trailerplan.service.RaceWebFluxServiceImpl;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-public class RaceWebFluxControllerImplTest {
+public class RaceWebFluxControllerImplIT {
 
     @InjectMocks
     private RaceWebFluxControllerImpl controller;

@@ -26,7 +26,7 @@
         <h2.r2dbc.version>0.8.4.RELEASE</h2.r2dbc.version>
         <h2.database.version>1.4.200</h2.database.version>
         <mariadb.database.version>10.5.9</mariadb.database.version>
-        <mariadb.r2dbc.driver.version>1.0.1</mariadb.r2dbc.driver.version>
+        <mariadb.r2dbc.driver.version>1.0.2</mariadb.r2dbc.driver.version>
 
         <dozer.version>5.5.1</dozer.version>
         <guava.version>30.1.1-jre</guava.version>
@@ -49,9 +49,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <spring.profiles.active>application-db-container-dev</spring.profiles.active>
-            </properties>
         </profile>
         <profile>
             <id>dev</id>
@@ -74,6 +71,20 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${h2.database.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>io.r2dbc</groupId>
+                    <artifactId>r2dbc-h2</artifactId>
+                    <version>${h2.r2dbc.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
@@ -97,6 +108,10 @@
                                 <copy
                                         file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
                                         tofile="${project.build.directory}/${docker.image.name}.jar"
+                                />
+                                <copy
+                                        file="${project.build.directory}/${docker.image.name}.jar"
+                                        tofile="${project.basedir}/docker/app/${docker.image.name}.jar"
                                 />
                             </target>
                         </configuration>
@@ -183,17 +198,6 @@
             <groupId>org.mariadb</groupId>
             <artifactId>r2dbc-mariadb</artifactId>
             <version>${mariadb.r2dbc.driver.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.database.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.r2dbc</groupId>
-            <artifactId>r2dbc-h2</artifactId>
-            <version>${h2.r2dbc.version}</version>
         </dependency>
 
         <!-- other -->
