@@ -13,7 +13,7 @@
     <artifactId>race-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>race-api-reactive</name>
-    <description>trailer plan project - race</description>
+    <description>trailer plan project - race-api</description>
 
     <properties>
         <project.root.name>trailerplan</project.root.name>
@@ -29,13 +29,7 @@
         <mariadb.r2dbc.driver.version>1.0.2</mariadb.r2dbc.driver.version>
 
         <dozer.version>5.5.1</dozer.version>
-        <guava.version>30.1.1-jre</guava.version>
-        <commons.lang3.version>3.11</commons.lang3.version>
-        <rest-assured.version>4.3.3</rest-assured.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
-        <junit-vintage-engine>5.7.2</junit-vintage-engine>
-        <junit-platform-launcher.version>1.7.2</junit-platform-launcher.version>
-        <junit-platform-surefire-provider.version>1.3.2</junit-platform-surefire-provider.version>
         <jackson.version>2.11.4</jackson.version> <!-- don't take the last one due to dependencies from spring boot 2.4.5 -->
         <jackson.codehaus.version>1.9.13</jackson.codehaus.version>
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
@@ -269,5 +263,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
